@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}ATUAÇÃO / Alteração {% endblock %}
+
+{% block content %}
+
+{% if lista %}
+{% for registro in lista %}
+ <div class="container">
+  
+  <form enctype="multipart/form-data" action="{% url 'consulta' %}" method="POST">
+        {% csrf_token %}		
+  <br>
+   <div class="form-row">  
+      <div class="col-sm-6">
+	    <h4>Processo: {{ registro.1 }}</h4>
+      </div>
+      <div class="col-sm-6">  
+        <h4 style="text-align: right;"><button type="submit" class="btn btn-primary mb-2">Atualizar</button></h4>
+      </div>
+	<hr/>
+    <table class="table table-striped table-bordered table-sm">
+      <thead>
+        <tr>       
+        </tr>
+      </thead>
+      <tbody>
+        <tr>              
+          <td>ID PROCESSO</td>
+          <td><input type="number" class="form-control" name="idproc" value="{{registro.0}}" readonly></td>
+          <td></td>
+        </tr>
+        <tr>
+		  <td>NÚMERO DO PROCESSO</td>
+          <td id="num_proc_td">
+            <input type="text" class="form-control" id="numpro" name="numprocesso" value="{{ registro.1 }}"
+					    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+						pattern="[0-9]{20}"
+						maxlength="20" readonly required>		 
+          </td>
+          <td>
+            <button type="button" onclick="habilitarCampo('numpro')" class="btn btn-outline-light btn-sm">
+             <img src="{% static 'icones/edicao.png' %}" width="30" height="30">
+            </button></td>                          
+        </tr>
+        <tr>
+	      <td>NOME DO EXEQUENTE</td>
+          <td id="nom_exec_td">
+            <input type="text" class="form-control" id="nomexeq" value="{{registro.2}}" name="exequente" maxlength="70" onchange="upperCase();" readonly required></td>                          
+          <td id="nom_exec_td_bt">
+            <button type="button" onclick="habilitarCampo('nomexeq')" class="btn btn-outline-light btn-sm">
+             <img src="{% static 'icones/edicao.png' %}" width="30" height="30">
+            </button></td>
+        </tr>
+        <tr>
+		  <td>QUANTIDADE DE EXEQUENTES</td>
+          <td id="qtde_exec_td">
+            <input type="text" class="form-control" id="cmp1" value="{{registro.3}}" name="qtexeq" onchange="validaQtdExeq(qtexeq.value);" onkeypress="return event.charCode >= 48 && event.charCode <=57" readonly required></td>                          
+          <td id="qtde_exec_td_bt">
+            <button type="button" onclick="habilitarCampo('cmp1')" class="btn btn-outline-light btn-sm">
+                <img src="{% static 'icones/edicao.png' %}" width="30" height="30">
+               </button></td>
+          </td>  
+        </tr>
+        <tr>
+		  <td>INSTÂNCIA</td>
+          <td>{{ registro.4 }}</td>
+          <td></td>                          
+        </tr>
+        <tr>			
+		  <td>SITUACAO DA UNIAO</td>
+          <td id="situacao">{{ registro.7 }}</td>
+          <td></td>                          
+        </tr>  
+        <tr>
+		  <td>TIPO DE CÁLCULO</td>
+          <td>{{ registro.8}}</td>                          
+          <td></td>
+        </tr>  
+        <tr>
+		      <td>OBJETO DA AÇÃO</td>
+           <td>{{ registro.9 }}</td>                          
+           <td></td>
+        </tr>
+          
+        <tr>
+			    <td>VALOR DO AUTOR</td>
+            <td id="vr_autor_td">
+                <input type="float" class="form-control" id="campo9" value="{{ registro.12 }}" name="valorautor" onchange="doDecimal(this.value, this.name); return false;" oninput="formatarNumero(this)" readonly required></td>
+            <td>
+              {% if registro.7 != "Autora" %}  
+              <button type="button" onclick="habilitarCampo('campo9')" class="btn btn-outline-light btn-sm">
+                    <img src="{% static 'icones/edicao.png' %}" width="30" height="30">
+                   </button>
+              {% endif %}
+            </td>                          
+        </tr>
+
+        <tr>
+		     <td>VALOR DA UNIÃO</td>
+            <td id="vr_uniao_td">
+                <input type="float" class="form-control" id="campo8" value="{{ registro.13 }}" name="valoruniao" onchange="doDecimal(this.value, this.name); return false;" oninput="formatarNumero(this)" readonly required></td>                          
+            <td>
+                <button type="button" onclick="habilitarCampo('campo8')" class="btn btn-outline-light btn-sm">
+                    <img src="{% static 'icones/edicao.png' %}" width="30" height="30">
+                   </button></td>
+            </td>
+        </tr>        
+        <tr>      
+          <td>DATA ENVIO PARA UNIDADE</td>
+            <td>{{registro.14 |date:"SHORT_DATE_FORMAT" }}</td>                          
+            <td></td>
+        </tr>  
+        <tr>
+			    <td>DATA DE SAÍDA</td>
+            <td>{{registro.17 |date:"SHORT_DATE_FORMAT"}}</td>                          
+            <td></td>
+        </tr>  
+        <tr>
+          <td>OBSERVAÇÃO DO PROCESSO</td>
+            <td id="obs_proc_td">
+                <textarea class="form-control" id="campo2" name="observacao"  maxlength="200" readonly>{{ registro.18}}</textarea></td>
+            <td>
+                <button type="button" onclick="habilitarCampo('campo2')" class="btn btn-outline-light btn-sm">
+                <img src="{% static 'icones/edicao.png' %}" width="30" height="30">
+               </button>
+            </td>                          
+        </tr> 
+          <td>NOME DO RESPONSÁVEL</td>
+            <td>{{registro.19}}</td>                          
+            <td></td>
+        </tr>  
+        <tr>
+          <td>DATA INSERÇÃO DOS DADOS</td>
+            <td>{{registro.21 |date:"SHORT_DATE_FORMAT"}}</td>                          
+            <td></td>
+        </tr>  
+        <tr>
+          <td>UNIDADE</td>
+            <td>{{registro.23}}</td>                          
+            <td></td>
+        </tr> 
+     </tbody>
+    </table>
+  </div>
+ </br>
+</form>
+{% endfor %}
+ 
+{% else %}
+
+  <br>
+	<h4>Alteração</h4>
+	<hr/>
+  
+	{% if messages %}
+	  {% for message in messages %}
+		    <div class="alert alert-success" role="alert">
+		        {{ message }}
+		        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		    </div>    
+	  {% endfor %}
+	{% endif %}
+
+       
+	<div class="container">    
+		<form enctype="multipart/form-data" action="{% url 'altera' %}" method="POST">
+	      	{% csrf_token %}		  	
+			</div>
+			<div class="form-row">  
+			    <div class="col-sm-6">					  
+					<label for="campo2" class="form-label">ID do processo</label>					
+                    <input type="text" class="form-control" id="campo2" name="idproc" onkeypress="return event.charCode >= 48 && event.charCode <=57" >
+                    </br>
+					<button type="submit" class="btn btn-primary mb-2">Buscar registro</button>
+				</div>
+			</div>	      
+	  	</form>
+	</div>	
+{% endif %}
+
+{% endblock %}

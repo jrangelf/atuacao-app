@@ -1,0 +1,31 @@
+services:
+  app:
+    container_name: atuacao-app
+    build:
+      context: ./app
+      dockerfile: ./dockerfile.app
+    tty: true
+    
+    command: uwsgi --socket app:8000 --module atuapp.wsgi --master --enable-threads                    
+    ports:
+      - '8000:8000'
+    restart: on-failure
+    volumes:
+      - ./app:/app
+      - static_data:/app/static     
+      
+   nginx:
+     container_name: nginx
+     build:
+       context: ./nginx
+       dockerfile: ./dockerfile.nginx
+     volumes:
+       - static_data:/vol/static
+       - ./nginx/log:/var/log/nginx      
+     ports:
+       - '80:80'
+       #- '8000:8000'
+     depends_on:
+       - app  
+volumes:
+  static_data:
