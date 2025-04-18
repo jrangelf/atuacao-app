@@ -14,18 +14,18 @@ services:
       - ./app:/app
       - static_data:/app/static     
       
-   nginx:
-     container_name: nginx
-     build:
-       context: ./nginx
-       dockerfile: ./dockerfile.nginx
-     volumes:
-       - static_data:/vol/static
-       - ./nginx/log:/var/log/nginx      
-     ports:
-       - '80:80'
-       #- '8000:8000'
-     depends_on:
-       - app  
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+      dockerfile: ./dockerfile.nginx
+    volumes:
+      - static_data:/vol/static
+      - ./nginx/log:/var/log/nginx      
+    ports:
+      - '80:80'
+      #- '8000:8000'
+    depends_on:
+      - app  
 volumes:
   static_data:
