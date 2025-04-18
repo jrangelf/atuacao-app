@@ -76,5 +76,34 @@ verificar se os containers estão funcionando:
 ```
 docker ps
 ```
+---
+![image](https://github.com/user-attachments/assets/920d9431-7105-4266-9f03-308954c67e6e)
+---
+![image](https://github.com/user-attachments/assets/57acc003-ca60-482f-b87b-5409fc9054d4)
+---
+![image](https://github.com/user-attachments/assets/b8d14a74-1a83-444f-95a9-77fd5f11a16b)
+---
+![image](https://github.com/user-attachments/assets/915104ef-2827-4756-b872-1edb5afb9090)
+---
+![image](https://github.com/user-attachments/assets/61dc08bb-f1a9-4401-8fbc-875d403d191f)
+---
+![image](https://github.com/user-attachments/assets/5a3b215a-bf34-43d0-8e2a-83a4cae7ca93)
+---
+![image](https://github.com/user-attachments/assets/5f14be91-433d-4dc0-8fed-26ead894fade)
+---
+![image](https://github.com/user-attachments/assets/a9697ade-10c3-43e1-9032-0801a83e2dcc)
+---
+![image](https://github.com/user-attachments/assets/c0f01c61-f9c6-4ff9-a495-2362a3028eb0)
+---
+![image](https://github.com/user-attachments/assets/621c01b1-cdef-4fa3-8a13-c1394d6b9245)
+---
+
+
+
+
+
+
+
+
 
 
