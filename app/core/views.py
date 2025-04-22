@@ -63,13 +63,14 @@ def entradadados(request):
                         vr_uniao = "{:,.2f}".format(float(registro[13])).replace(",", "X").replace(".", ",").replace("X", ".")
                         vr_autor = "{:,.2f}".format(float(registro[12])).replace(",", "X").replace(".", ",").replace("X", ".")
                         
-
+                        botao_voltar = False
                         if duplicado == False:
                                 msg = 'Registro inserido com sucesso!'
                                 messages.success (request, (msg))
                         else:
-                                msg = f'REGISTRO DUPLICADO !'
+                                msg = 'REGISTRO DUPLICADO! Foi identificado que o registro possui o mesmo número de processo, bem como os mesmos valores do Autor e da União.'
                                 messages.warning (request, (msg))
+                                botao_voltar = True
                         
                         
 
@@ -82,7 +83,8 @@ def entradadados(request):
                                                             'objetoacao':_objetoacao,
                                                             'necap':_unidade,
                                                             'vr_autor':vr_autor,
-                                                            'vr_uniao':vr_uniao
+                                                            'vr_uniao':vr_uniao,
+                                                            'botao': botao_voltar
                                                             })
                 else:
                         msg = 'Não foi possível gravar o registro no banco Atuação!'
