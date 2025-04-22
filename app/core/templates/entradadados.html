@@ -109,8 +109,12 @@
  
 <div class="col-sm-12">
   <br>
-  <button onclick="window.print()" type="submit" class="btn btn-primary mt-3">Imprimir</button>
-</div> 	
+  {% if botao %}
+  	<a href="{% url 'entradadados' %}" class="btn btn-primary mt-3">Voltar</a>
+  {% else %}
+  	<button onclick="window.print()" type="button" class="btn btn-primary mt-3">Imprimir</button>
+  {% endif %}
+</div> 
 
 {% else %}
 <br>
